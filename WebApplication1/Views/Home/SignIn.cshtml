@@ -1,0 +1,51 @@
+﻿
+
+
+<meta charset="utf-8"/>
+<link rel="stylesheet" href="~/css/SignUp/background_signUp.css">
+@model UserLog 
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+<form  asp-action="SignIn" method="post">
+    <div class="text-center">
+        <div class="mt-5 backBlock">
+            <div class="p-5 backBlur"/>
+            <h2>Sign In</h2>
+            <input asp-for="Email" class="mt-4" type="email" size="30" name="email" maxlength="40" placeholder="email" required><br>
+            <input asp-for="Password" class="mt-3" type="password" size="30" name="password" maxlength="40" placeholder="Password" required><br>
+               <input asp-for="Datetime" id="date" type="hidden">
+            <button onclick="SetDate()" class="mt-3 btn btn-dark">Sign In</button>
+        </div>
+    </div>
+</form>
+<body>
+@if (TempData["SignInError"] != null)
+{
+    <div class="alert alert-danger alert-dismissible" style="position: fixed; bottom: 40px; width: 100%" >
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        @TempData["SignInError"].ToString()
+    </div>
+}
+</body>
+
+<script type="text/javascript">
+
+$(document).ready(function () {
+ 
+window.setTimeout(function() {
+    $(".alert").fadeTo(1000, 0).slideUp(1000, function(){
+        $(this).remove(); 
+    });
+}, 5000);
+ 
+});
+</script>
+<script>
+        function SetDate() {
+            let date = new Date().toLocaleString();
+            $('#date').val(date);
+        }
+    </script>

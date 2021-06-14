@@ -1,0 +1,56 @@
+﻿
+<meta charset="utf-8"/>
+
+<link rel="stylesheet" href="~/css/SignUp/background_signUp.css">
+@model UserReg
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<form asp-action="SignUp" method="post" asp-controller="Home" id="form">
+   
+
+    <div class="text-center">
+      
+        <div class="mt-5 backBlock">
+            <div class="p-5 backBlur"/>
+
+            <h2>Sign Up</h2>
+
+            <input asp-for="name" class="mt-4 " type="text" size="30"  name="name" maxlength="40" placeholder="Name" required><br>
+            <input asp-for="Email" class="mt-3 " type="email" size="30" name="email" maxlength="40" placeholder="email" required><br>
+            <input asp-for="Password" class="mt-3 " type="password" size="30" id="password" name="password" maxlength="40" placeholder="Password" required><br>
+            <input asp-for="PasswordConfirm" class="mt-3 " type="password" size="30" required placeholder="Repeate password"><br>
+            <input asp-for="Datetime"  id="date" type="hidden">
+            <button onclick="SetDate()" name="submit" class="btn mt-3 btn-dark justify-content-end ">Sign up</button>
+
+        </div>
+    </div>
+ </form>
+     @if (TempData["SignUpError"] != null)
+       {
+           <div id="alert" class="alert alert-danger alert-dismissible" style="position: fixed; bottom: 40px; width: 100%" >
+               <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+               @TempData["SignUpError"].ToString()
+           </div>
+       }
+<script type="text/javascript">
+
+$(document).ready(function () {
+ 
+window.setTimeout(function() {
+    $(".alert").fadeTo(1000, 0).slideUp(1000, function(){
+        $(this).remove(); 
+    });
+}, 5000);
+ 
+});
+</script>
+
+  <script src="~/js/SignUp/passwordValidation.js"></script>
+
+<script>
+        function SetDate() {
+            let date = new Date().toLocaleString();
+            $('#date').val(date);
+        }
+    </script>

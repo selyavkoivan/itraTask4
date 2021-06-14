@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<script src='lib/jquery/dist/jquery.js'></script>
+
+<meta charset="utf-8"/>
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+<header>
+    
+    <nav class="row navbar-dark navbar navbar-expand-sm navbar-toggleable-sm bg-white border-bottom box-shadow mb-3">
+        <div class="container navbar-collapse collapse d-sm-inline-flex align-content-start">
+            <ul class="navbar-nav">
+                <li class="nav-item"><h3  class=" nav-link text-dark m-1 p-1">itraEx_IV</h3></li>
+                 
+            </ul>
+        </div>
+        <div class="container navbar-collapse justify-content-end collapse d-sm-inline-flex">
+          
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link text-dark m-2 p-1" asp-action="SignIn">Sign Out</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<body>
+@RenderBody()
+
+</body>
+<nav class="fixed-bottom bg-white border-top  box-shadow">
+    
+    <div class="container text-center ">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <p class=" nav-link text-dark mt-1 m-0 p-0">хоть мы и внизу, но мы не опущены</p>
+            </li>
+              
+            <li class="nav-item">
+                <p class=" nav-link text-dark mb-1 m-0 p-0">обратная связь : <a href="https://vk.com/selyavkoivan" class="text-dark">https://vk.com/selyavkoivan</a></p>
+            </li>                           
+                   
+                    
+        </ul>
+    </div>
+</nav>

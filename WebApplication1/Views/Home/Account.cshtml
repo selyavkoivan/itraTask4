@@ -1,0 +1,142 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutAccount.cshtml";
+}
+<!DOCTYPE html>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src='~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js'></script>
+<script src='~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js'></script>
+<script src='~/lib/jquery/dist/jquery.min.js'></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<style>
+.button{
+padding: 8px 12px ;
+margin: 8px;
+border-radius: 5px;
+}
+.block
+{
+background: linear-gradient(#eeeeff, #eeddff);
+ border-width: 1px 0;
+ border-color: #23021f;
+}
+#customers {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  background-color: #04AA6D;
+  text-align: center;
+  color: white;
+}
+</style>
+@model List<User> 
+<style> td { text-align : center; } </style>
+<script src="js/redirect.js"></script>
+<script>
+ function selectedCheckboxes(choice) {
+        let checkboxes = document.getElementsByName("box")
+        let selectedBoxes = []
+        checkboxes.forEach(box =>{if (box.checked !== false) selectedBoxes.push(box.id)})
+            $.ajax({
+                type: "POST",
+                url: choice === 1 ? '@Url.Action("Delete", "Home")' : choice === 2 ? '@Url.Action("Block", "Home")' : '@Url.Action("Unblock", "Home")',
+                data: { 'selectedItems': selectedBoxes} ,
+                success: function (data) {
+                   window.location.reload()
+                },
+                error: function (data) {
+                     
+                     window.location.reload()
+                      
+                }
+            });
+        
+        }
+      
+</script>
+<script>
+        function takeOff()
+        {
+            document.getElementById("selectAll").checked = 0
+        }
+</script>
+<script>
+        function selectAllBoxes(value)
+        {
+            let checkboxes = document.getElementsByName("box")
+            checkboxes.forEach(box => box.checked = value)
+        }
+</script>
+<form>
+    <div class="text-center">
+@if (TempData["SignInError"] != null)
+{
+    <h2>@TempData["SignInError"].ToString()</h2>
+}
+        <div class="mt-5 backBlock" style="display: inline-block; width: 70%">
+
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-top">
+                <div class="container navbar-collapse justify-content-end collapse d-sm-inline-flex">
+                    <ul class="navbar-nav">
+                        
+                            <li class="nav-item"><button onclick="selectedCheckboxes(2)" type="submit" type="button" class="button block">Block</button></li>
+                       
+                            <li class="nav-item"><button onclick="selectedCheckboxes(3)" type="submit" type="button" class="button block material-icons">lock_open</button></li>
+                  
+                            <li class="nav-item"><button onclick="selectedCheckboxes(1)" type="submit" class="button block material-icons">delete_sweep</button></li>
+                       
+                    </ul>
+                </div>
+            </nav>
+            <table id="customers" border="1" align="center" cellpadding="5px" width="100%">
+
+                <tr><th><a class="mr-2">Choose all</a><input onclick="selectAllBoxes(this.checked)" id="selectAll" type="checkbox"/></th>
+                    <th>id</th>
+                    <th>Name</th>
+                    <th>email</th>
+                    <th>Sign Up time</th>
+                    <th>Last login time</th>
+                    <th>Lock status</th></tr>
+                @for(var i = 0; i < Model.Count(); i++)
+                {
+                    <tr><td><input onclick="takeOff()" id="@Model[i].Id" type="checkbox" name="box"/></td>
+                        <td>@Model[i].Id</td>
+                        <td>@Model[i].UserName</td>
+                        <td>@Model[i].Email</td>
+                        <td>@Model[i].RegistrationDate</td>
+                        @if (Model[i].AuthDate is null)
+                        {<td>is not logged in</td>}
+                        else
+                        {<td>@Model[i].AuthDate</td>}
+                        @if (Model[i].Status == false){<td>unblocked</td>}
+                        else{<td>blocked</td>}
+               </tr>
+                }
+
+            </table>
+        </div>
+
+    </div>
+
+
+  
+</form>
+
+
+
+
